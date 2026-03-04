@@ -258,6 +258,9 @@ void deleteEnd(struct node **head) {
 
 // function to delete at any position.
 void deletePosition(struct node **head, int position) {
+    printf("\nWhich position you want to delete: ");
+    scanf("%d", &position);
+    
     if (*head == NULL)
         return;
     
