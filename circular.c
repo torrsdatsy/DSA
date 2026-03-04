@@ -93,7 +93,7 @@ void enterNodes(struct node **head, int n) {
     int value;
 
     for(int i = 0; i < n; i++) {
-        printf("\nEnter values: ");
+        printf("Enter values: ");
         scanf("%d", &value);
 
         newnode = createNode(value);
@@ -109,6 +109,8 @@ void enterNodes(struct node **head, int n) {
             temp = newnode;
         }
     }
+    
+    printf("\nNodes entered successfully! \n");
 }
 
 // function to display the nodes.
