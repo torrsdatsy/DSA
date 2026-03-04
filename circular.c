@@ -14,6 +14,9 @@ void displayNodes(struct node *head);
 void insertBeginning(struct node **head, int value);
 void insertEnd(struct node **head, int value);
 void insertPosition(struct node **head, int value, int position);
+void deleteBeginning(struct node **head);
+void deletedEnd(struct node **head);
+void deletePosition(struct node **head, int position);
 
 // circular linked list implementation
 
@@ -56,13 +59,13 @@ int main () {
                 insertPosition(&head, value, position);
                 break;
             case 6:
-                printf("");
+                deleteBeginning(&head);
                 break;
             case 7:
-                printf("");
+                deleteEnd(&head);
                 break;
             case 8:
-                printf("");
+                deletePosition(&head, position);
                 break;
             case 9:
                 printf("Exiting the program... \n");
@@ -201,4 +204,80 @@ void insertPosition(struct node **head, int value, int position) {
     temp->next = newnode;
 
     printf("\nNode inserted at position %d successfully! \n", position);
+}
+
+// function to delete at the beginning.
+void deleteBeginning(struct node **head) {
+    if (*head == NULL) {
+        printf("\nList is empty, nothing to delete! \n");
+        return;
+    }
+        
+
+    struct node *temp = *head;
+
+    if(temp->next == *head) {
+        free(temp);
+        *head = NULL;
+        printf("\nPopped out! \n");
+        return;
+    }
+
+    struct node *last = *head;
+    while(last->next != *head) {
+        last = last->next;
+    }
+
+    *head = temp->next;
+    last->next = *head;
+    free(temp);
+    printf("\nFirst node deleted successfully! \n");
+}
+
+// function to deleted at the end.
+void deleteEnd(struct node **head) {
+    if (*head == NULL)
+        return;
+    
+    struct node *temp = *head;
+    if(temp->next == *head) {
+        free(temp);
+        *head = NULL;
+        return;
+    }
+
+    while(temp->next->next != *head) {
+        temp = temp->next;
+    }
+
+    struct node *last = temp->next;
+    temp->next = *head;
+    free(last);
+    printf("\nLast node deleted successfully! \n");
+}
+
+// function to delete at any position.
+void deletePosition(struct node **head, int position) {
+    if (*head == NULL)
+        return;
+    
+    if (position == 1) {
+        deleteBeginning(head);
+        return;
+    }
+
+    struct node *temp = *head;
+    for(int i = 1; i < position - 1 && temp->next != *head; i++) {
+        temp = temp->next;
+    }
+
+    struct node *target = temp->next;
+    if(target->next == *head) {
+        temp->next = *head;
+    } else {
+        temp->next = target->next;
+    }
+
+    free(target);
+    printf("\nNode at position %d deleted successfully! \n", position);
 }
