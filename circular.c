@@ -13,12 +13,13 @@ void enterNodes(struct node **head, int n);
 void displayNodes(struct node *head);
 void insertBeginning(struct node **head, int value);
 void insertEnd(struct node **head, int value);
+void insertPosition(struct node **head, int value, int position);
 
 // circular linked list implementation
 
 int main () {
     struct node *head = NULL, *temp = NULL, *newnode;
-    int value, n, choice;
+    int value, n, choice, position;
 
     // enetering the number of nodes.
     printf("\nEnter the number of nodes: ");
@@ -52,7 +53,7 @@ int main () {
                 insertEnd(&head, value);
                 break;
             case 5:
-                printf("");
+                insertPosition(&head, value, position);
                 break;
             case 6:
                 printf("");
@@ -173,4 +174,29 @@ void insertEnd(struct node **head, int value) {
     newnode->next = *head;
 
     printf("\nNode inserted at the end successfully! \n");
+}
+
+// function to insert a newnode at any position.
+void insertPosition(struct node **head, int value, int position) {
+    printf("\nEnter the value to insert: ");
+    scanf("%d", &value);
+    printf("\nEnter position to insert: ");
+    scanf("%d", &position);
+
+    if(position == 1) {
+        insertBeginning(head, value);
+        return;
+    }
+
+    struct node *newnode = createNode(value);
+    struct node *temp = *head;
+
+    for(int i = 1; i < position - 1 && temp->next != *head; i++) {
+        temp = temp->next;
+    }
+
+    newnode->next = temp->next;
+    temp->next = newnode;
+
+    printf("\nNode inserted at position %d successfully! \n", position);
 }
