@@ -10,29 +10,29 @@ int top = -1;
 void push(int value) {
     // check if the stack is full.
     if(top == MAX - 1) {
-        printf("\nStack Overflow! \n");
+        printf("\nStack Overflow! \n\n");
         return;
     }
     stack[++top] = value; // increment top and then assign value to stack[top].
-    printf("\nPushed %d into the stack successfully! \n", value);
+    printf("\nPushed %d into the stack successfully! \n\n", value);
 }
 
 // pop an element from the stack.
 void pop() {
     // check if the stack is empty.
     if(top == -1) {
-        printf("\nStack Underflow! \n");
+        printf("\nStack Underflow! \n\n");
         return;
     }
     stack[top--]; // decrement top after popping the element.
-    printf("\nPopped out successfully! \n");
+    printf("\nPopped out successfully! \n\n");
 }
 
 // peek the top element of the stack.
 void peek() {
     // check if the stack is empty.
     if(top == -1) {
-        printf("\nStack is empty! \n");
+        printf("\nStack is empty! \n\n");
         return;
     }
     printf("\nTop element is %d\n\n", stack[top]);
@@ -42,7 +42,7 @@ void peek() {
 void display () {
     // check if the stack is empty.
     if(top == -1) {
-        printf("\nStack is empty! \n");
+        printf("\nStack is empty! \n\n");
         return;
     }
     // display the stack elements from top to bottom.
@@ -50,7 +50,7 @@ void display () {
     for(int i = top; i >= 0; i--) {
         printf("%d ", stack[i]);
     }
-    printf("\n");
+    printf("\n\n");
 }
 
 int main () {
