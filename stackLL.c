@@ -11,6 +11,7 @@ struct node {
 
 struct node *top = NULL;
 
+// push an element into stack.
 void push(int value){
     struct node *newnode = (struct node*)malloc(sizeof(struct node));
     if(newnode == NULL){
@@ -26,6 +27,7 @@ void push(int value){
     printf("\n%d pushed into stack.\n\n", value);
 }
 
+// pop an element from stack
 void pop() {
     if(top == NULL){
         printf("\nStack Underflow\n\n");
@@ -38,6 +40,7 @@ void pop() {
     free(temp);
 }
 
+// peek the top element
 void peek() {
     if(top == NULL){
         printf("\nStack is empty!\n\n");
@@ -46,6 +49,7 @@ void peek() {
     printf("\nTop element: %d\n\n", top->data);
 }
 
+// display an element.
 void display() {
     if(top == NULL){
         printf("\nStack is empty!\n\n");
