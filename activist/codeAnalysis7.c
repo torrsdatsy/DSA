@@ -28,5 +28,14 @@ int main() {
         temp = temp->next;
         i++;
     }
+
+    printf("\n");
+
+    temp = head;
+    while(i < 6){
+        printf("%d ", temp->data);
+        temp = temp->next;
+        i++;
+    }
     return 0;
 }
