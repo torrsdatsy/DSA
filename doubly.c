@@ -15,6 +15,9 @@ void displayNodes(struct node *head);
 void insertBeginning(struct node **head, int value);
 void insertEnd(struct node **head, int value);
 void insertPosition(struct node **head, int value, int position);
+void deleteBeginning(struct node **head);
+void deleteEnd(struct node **head);
+void deletePosition(struct node **head, int position);
 
 int main () {
     struct node *head = NULL, *temp = NULL, *newnode;
@@ -28,7 +31,10 @@ int main () {
         printf("3. Insert at the beginning\n");
         printf("4. Insert at the end\n");
         printf("5. Insert at a specific position\n");
-        printf("6. EXIT\n");
+        printf("6. Delete at beginning.\n");
+        printf("7. Delete at end\n");
+        printf("8. Delete at specific position\n");
+        printf("9. EXIT\n");
         printf("\n\nEnter your choice: ");
         scanf("%d", &choice);
 
@@ -52,13 +58,22 @@ int main () {
                 insertPosition(&head, value, position);
                 break;
             case 6:
+                deleteBeginning(&head);
+                break;
+            case 7:
+                deleteEnd(&head);
+                break;
+            case 8:
+                deletePosition(&head, position);
+                break;
+            case 9:
                 printf("Exiting the program. \n");
                 printf("THANK YOU! \n");
                 break;
             default:
                 printf("Invalid, Try Again! \n");
         }
-    }while(choice != 6);
+    }while(choice != 9);
     
     return 0;
 }
@@ -192,4 +207,84 @@ void insertPosition(struct node **head, int value, int position) {
     temp->next = newnode;
     
 
+}
+
+void deleteBeginning(struct node **head) {
+    if (*head == NULL) {
+        printf("\nList is empty\n");
+        return;
+    }
+
+    struct node *temp = *head;
+    *head = (*head)->next;
+
+    if (*head != NULL) {
+        (*head)->prev = NULL;
+    }
+
+    free(temp);
+    printf("\nFirst node deleted successfully!\n");
+}
+
+void deleteEnd(struct node **head) {
+    if (*head == NULL) {
+        printf("\nList is empty\n");
+        return;
+    }
+
+    struct node *temp = *head;
+
+    // Case 1: Only one node
+    if (temp->next == NULL) {
+        free(temp);
+        *head = NULL;
+        printf("\nLast node deleted, list is now empty!\n");
+        return;
+    }
+
+    // Case 2: More than one node → traverse to last
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    // Adjust links
+    temp->prev->next = NULL;
+    free(temp);
+
+    printf("\nLast node deleted successfully!\n");
+}
+
+void deletePosition(struct node **head, int position) {
+    if(*head == NULL){
+        printf("\nList is empty!\n");
+        return;
+    }
+
+    printf("\nEnter the position you wish to delete: ");
+    scanf("%d", &position);
+
+    struct node *temp = *head;
+   
+
+    for(int i = 1; temp != NULL && i < position; i++){
+        temp = temp->next;
+    }
+
+    if(temp == NULL || temp->next == NULL){
+        printf("\nPosition out of range!\n");
+        return;
+    }
+
+    if(temp->prev == NULL){
+        *head = temp->next;
+        if(*head == NULL) (*head)->prev = NULL;
+    }else if(temp->next == NULL) {
+        temp->prev->next = NULL;
+    }else {
+        temp->prev->next = temp->next;
+        temp->next->prev = temp->prev;
+    }
+
+    free(temp);
+    printf("\nNode deleted at position %d successfully!", position);
 }
